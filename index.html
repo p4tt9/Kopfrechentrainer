@@ -134,6 +134,12 @@
             }
         }
 
+        function setButtonsPressable(pressable) {
+            for (let i = 1; i < 5; i++) {
+                document.getElementById("answer" + i).disabled = !pressable;
+            }
+        }
+
         function onButtonClick(answerNumber) {
             if (answerNumber == correctAnswer) {
                 document.getElementById("answer" + answerNumber).style.backgroundColor = '#08c93c';
@@ -141,12 +147,13 @@
                 document.getElementById("answer" + answerNumber).style.backgroundColor = '#eb0707';
                 document.getElementById("answer" + correctAnswer).style.backgroundColor = '#08c93c';
             }
-
+            setButtonsPressable(false);
             setTimeout(function () {
                 for (let i = 1; i < 5; i++) {
                     document.getElementById("answer" + i).style.backgroundColor = '#ebebeb';
                 }
                 generateTask();
+                setButtonsPressable(true);
             }, 1000);
         }
 
