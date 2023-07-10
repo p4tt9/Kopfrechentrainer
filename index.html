@@ -43,6 +43,7 @@
     </style>
     <script>
         var correctAnswer;
+        var waiting = false;
         const answers = ["/", "/", "/", "/"];
 
         function getRndInteger(min, max) {
@@ -148,12 +149,14 @@
                 document.getElementById("answer" + correctAnswer).style.backgroundColor = '#08c93c';
             }
             setButtonsPressable(false);
+            waiting = true;
             setTimeout(function () {
                 for (let i = 1; i < 5; i++) {
                     document.getElementById("answer" + i).style.backgroundColor = '#ebebeb';
                 }
                 generateTask();
                 setButtonsPressable(true);
+                waiting = false;
             }, 1000);
         }
 
@@ -168,10 +171,10 @@
         5 + 7 =
     </div>
     <div id="options">
-        <button class="option" id="answer1" onclick="onButtonClick(1)">/</button>
-        <button class="option" id="answer2" onclick="onButtonClick(2)">/</button>
-        <button class="option" id="answer3" onclick="onButtonClick(3)">/</button>
-        <button class="option" id="answer4" onclick="onButtonClick(4)">/</button>
+        <button class="option" id="answer1" onclick="waiting ? {} : onButtonClick(1)">/</button>
+        <button class="option" id="answer2" onclick="waiting ? {} : onButtonClick(2)">/</button>
+        <button class="option" id="answer3" onclick="waiting ? {} : onButtonClick(3)">/</button>
+        <button class="option" id="answer4" onclick="waiting ? {} : onButtonClick(4)">/</button>
     </div>
 </body>
 
