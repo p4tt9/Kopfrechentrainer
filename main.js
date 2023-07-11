@@ -3,6 +3,12 @@ var waiting = false;
 const answers = ["/", "/", "/", "/"];
 var streak = 0;
 
+document.addEventListener('DOMContentLoaded', onStart, false);
+
+function onStart() {
+    generateTask();
+}
+
 function getRndInteger(min, max) {
     max++;
     return Math.floor(Math.random() * (max - min)) + min;
@@ -18,27 +24,8 @@ function replaceButtonText(buttonId, text) {
             else if (button.value) {
                 button.value = text;
             }
-            else //if (button.innerHTML)
-            {
+            else {
                 button.innerHTML = text;
-            }
-        }
-    }
-}
-
-function getButtonText(buttonId) {
-    if (document.getElementById) {
-        var button = document.getElementById(buttonId);
-        if (button) {
-            if (button.childNodes[0]) {
-                return button.childNodes[0].nodeValue;
-            }
-            else if (button.value) {
-                return button.value;
-            }
-            else //if (button.innerHTML)
-            {
-                return button.innerHTML;
             }
         }
     }
@@ -55,23 +42,29 @@ function isInOtherButton(buttonId, input) {
 }
 
 function generateTask() {
-    var firstSummand;
-    var secondSummand;
+    var firstOperand;
+    var secondOperand;
     var result;
 
-    var operation = getRndInteger(0, 1);
+    var operation = getRndInteger(0, 2);
     switch (operation) {
         case 0:
-            firstSummand = getRndInteger(1, 100);
-            secondSummand = getRndInteger(1, 100);
-            document.getElementById("question").innerHTML = firstSummand + " + " + secondSummand;
-            result = firstSummand + secondSummand;
+            firstOperand = getRndInteger(1, 100);
+            secondOperand = getRndInteger(1, 100);
+            document.getElementById("question").innerHTML = firstOperand + " + " + secondOperand;
+            result = firstOperand + secondOperand;
             break;
         case 1:
-            firstSummand = getRndInteger(1, 10);
-            secondSummand = getRndInteger(1, 10);
-            document.getElementById("question").innerHTML = firstSummand + " * " + secondSummand;
-            result = firstSummand * secondSummand;
+            firstOperand = getRndInteger(1, 10);
+            secondOperand = getRndInteger(1, 10);
+            document.getElementById("question").innerHTML = firstOperand + " * " + secondOperand;
+            result = firstOperand * secondOperand;
+            break;
+        case 2:
+            firstOperand = getRndInteger(1, 10);
+            secondOperand = getRndInteger(1, 10);
+            document.getElementById("question").innerHTML = (firstOperand * secondOperand) + " / " + firstOperand;
+            result = secondOperand;
             break;
     }
 
@@ -118,5 +111,3 @@ function onButtonClick(answerNumber) {
         waiting = false;
     }, 1000);
 }
-
-document.addEventListener('DOMContentLoaded', generateTask, false);
